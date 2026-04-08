@@ -495,7 +495,7 @@ int main(void)
 	//------------------DHT11----------------------
 	DHT11_Init(&dht11_nodes[0], &htim1, GPIOA, GPIO_PIN_11);
 	DHT11_Init(&dht11_nodes[1], &htim1, GPIOA, GPIO_PIN_8);
-	DHT11_Init(&dht11_nodes[2], &htim1, GPIOA, GPIO_PIN_9);
+	DHT11_Init(&dht11_nodes[2], &htim1, GPIOB, GPIO_PIN_8);
 
 	//------------------LCD------------------------
 	lcd1.hi2c = &hi2c1;
@@ -812,11 +812,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, Relay2_Pin|Relay1_Pin|GPIO_PIN_8|GPIO_PIN_9
-                          |GPIO_PIN_11, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, Relay2_Pin|Relay1_Pin|GPIO_PIN_8|GPIO_PIN_11, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(CoiChip_GPIO_Port, CoiChip_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, CoiChip_Pin|GPIO_PIN_8, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PA0 PA2 */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_2;
@@ -824,10 +823,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : Relay2_Pin Relay1_Pin PA8 PA9
-                           PA11 */
-  GPIO_InitStruct.Pin = Relay2_Pin|Relay1_Pin|GPIO_PIN_8|GPIO_PIN_9
-                          |GPIO_PIN_11;
+  /*Configure GPIO pins : Relay2_Pin Relay1_Pin PA8 PA11 */
+  GPIO_InitStruct.Pin = Relay2_Pin|Relay1_Pin|GPIO_PIN_8|GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -851,8 +848,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(Button4_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : CoiChip_Pin */
-  GPIO_InitStruct.Pin = CoiChip_Pin;
+  /*Configure GPIO pins : CoiChip_Pin PB8 */
+  GPIO_InitStruct.Pin = CoiChip_Pin|GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
